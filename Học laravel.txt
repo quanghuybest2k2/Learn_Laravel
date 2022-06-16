@@ -1,0 +1,6 @@
+MVC
+model: thao tác với database
+controller: gọi view hoặc model=> return view
+view: giao diện(hiển thị dữ liệu từ model)
+------
+nếu 2 namespace khách nhau thì phải dùng từ khóa use
