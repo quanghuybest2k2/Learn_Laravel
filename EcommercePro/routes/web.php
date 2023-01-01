@@ -14,10 +14,7 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+route::get('/', [HomeController::class, 'index']); // return fuc index from HomeController
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
