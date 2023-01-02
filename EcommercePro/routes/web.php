@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
+
+use App\Http\Controllers\AdminHomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,3 +27,7 @@ Route::middleware([
     })->name('dashboard');
 });
 route::get('/redirect', [HomeController::class, 'redirect']);
+
+route::get('/view_category', [AdminHomeController::class, 'view_category']);
+
+route::post('/add_category', [AdminHomeController::class, 'add_category']);
