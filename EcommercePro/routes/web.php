@@ -27,7 +27,9 @@ Route::middleware([
     })->name('dashboard');
 });
 route::get('/redirect', [HomeController::class, 'redirect']);
-
+// hien thi
 route::get('/view_category', [AdminHomeController::class, 'view_category']);
-
+// them (method post)
 route::post('/add_category', [AdminHomeController::class, 'add_category']);
+//xoa
+route::get('/delete_category/{id}', [AdminHomeController::class, 'delete_category']);// id được gửi từ lúc load lên

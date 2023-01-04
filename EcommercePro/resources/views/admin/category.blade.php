@@ -18,6 +18,14 @@
         .input_color {
             color: black;
         }
+
+        .center {
+            margin: auto;
+            width: 50%;
+            text-align: center;
+            margin-top: 30px;
+            border: 3px solid white;
+        }
     </style>
 </head>
 
@@ -34,7 +42,7 @@
                 @if (session()->has('message'))
                     <div class="alert alert-success">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
-                        {{ session()->get('message') }} {{-- hiển thị message thành công --}}
+                        {{ session()->get('message') }} {{-- hiển thị message thông báo --}}
 
                     </div>
                 @endif
@@ -47,6 +55,21 @@
                         <input type="submit" class="btn btn-primary" value="Add Category" name="submit" />
                     </form>
                 </div>
+                <table class="center">
+                    <tr>
+                        <td>Category Name</td>
+                        <td>Action</td>
+                    </tr>
+                    @foreach ($data as $item)
+                        <tr>
+                            <td>{{ $item->category_name }}</td>{{-- hien thi ten loai --}}
+                            <td>
+                                <a onclick="return confirm('Bạn có chắc muốn xóa mục này?')" class="btn btn-danger"
+                                    href="{{ url('delete_category', $item->id) }}">Delete</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
             </div>
         </div>
         <!-- container-scroller -->
