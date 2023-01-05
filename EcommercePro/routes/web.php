@@ -27,9 +27,13 @@ Route::middleware([
     })->name('dashboard');
 });
 route::get('/redirect', [HomeController::class, 'redirect']);
-// hien thi
+// hien thi category
 route::get('/view_category', [AdminHomeController::class, 'view_category']);
 // them (method post)
 route::post('/add_category', [AdminHomeController::class, 'add_category']);
 //xoa
-route::get('/delete_category/{id}', [AdminHomeController::class, 'delete_category']);// id được gửi từ lúc load lên
+route::get('/delete_category/{id}', [AdminHomeController::class, 'delete_category']); // id được gửi từ lúc load lên
+// hien thi products
+route::get('/view_product', [AdminHomeController::class, 'view_product']);
+// them product (method post)
+route::post('/add_product', [AdminHomeController::class, 'add_product']);
