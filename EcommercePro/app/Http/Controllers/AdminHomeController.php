@@ -54,4 +54,9 @@ class AdminHomeController extends Controller
         $product->save();
         return redirect()->back()->with('message', 'Thêm sản phẩm thành công.');
     }
+    public function show_product()
+    {
+        $product = Product::all();
+        return view('admin.show_product', compact('product'));
+    }
 }

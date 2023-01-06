@@ -75,8 +75,7 @@
                         </div>
                         <div class="div_design">
                             <label>Discount Price: </label>
-                            <input class="text_color" type="number" name="dis_price" placeholder="Write a discount"
-                                required />
+                            <input class="text_color" type="number" name="dis_price" placeholder="Write a discount" />
                         </div>
                         <div class="div_design">
                             <label>Product Quantity: </label>

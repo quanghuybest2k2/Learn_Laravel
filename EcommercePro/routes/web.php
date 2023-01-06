@@ -37,3 +37,5 @@ route::get('/delete_category/{id}', [AdminHomeController::class, 'delete_categor
 route::get('/view_product', [AdminHomeController::class, 'view_product']);
 // them product (method post)
 route::post('/add_product', [AdminHomeController::class, 'add_product']);
+// hien thi san pham len view
+route::get('/show_product', [AdminHomeController::class, 'show_product']);
