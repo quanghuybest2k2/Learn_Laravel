@@ -43,6 +43,13 @@
         <!-- partial -->
         <div class="main-panel">
             <div class="content-wrapper">
+                @if (session()->has('message'))
+                    <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                        {{ session()->get('message') }} {{-- hiển thị message thông báo --}}
+
+                    </div>
+                @endif
                 <h2 class="font_size">All Products</h2>
                 <table class="center">
                     <tr class="th_color">
@@ -53,6 +60,8 @@
                         <th class="th_deg">Price</th>
                         <th class="th_deg">Discount Price</th>
                         <th class="th_deg">Product Image</th>
+                        <th class="th_deg">Delete</th>
+                        <th class="th_deg">Edit</th>
                     </tr>
                     @foreach ($product as $item)
                         <tr>
@@ -65,6 +74,9 @@
                             <td>
                                 <img class="img_size" src="/product/{{ $item->image }}" alt="" />
                             </td>
+                            <td><a class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?')"
+                                    href="{{ url('delete_product', $item->id) }}">Delete</a></td>
+                            <td><a class="btn btn-warning" href="{{ url('update_product', $item->id) }}">Edit</a></td>
                         </tr>
                     @endforeach
                 </table>

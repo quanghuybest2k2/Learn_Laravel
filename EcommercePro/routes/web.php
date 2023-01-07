@@ -39,3 +39,9 @@ route::get('/view_product', [AdminHomeController::class, 'view_product']);
 route::post('/add_product', [AdminHomeController::class, 'add_product']);
 // hien thi san pham len view
 route::get('/show_product', [AdminHomeController::class, 'show_product']);
+// delete products
+route::get('/delete_product/{id}', [AdminHomeController::class, 'delete_product']);
+// update products
+route::get('/update_product/{id}', [AdminHomeController::class, 'update_product']);
+// finish update product
+route::post('/update_product_confirm/{id}', [AdminHomeController::class, 'update_product_confirm']);

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Category;
 use App\Models\Product;
+use GuzzleHttp\Handler\Proxy;
 
 class AdminHomeController extends Controller
 {
@@ -58,5 +59,38 @@ class AdminHomeController extends Controller
     {
         $product = Product::all();
         return view('admin.show_product', compact('product'));
+    }
+    public function delete_product($id)
+    {
+        $product = Product::find($id);
+        $product->delete();
+        return redirect()->back()->with('message', 'Đã xóa sản phẩm thành công!');
+    }
+    public function update_product($id)
+    {
+        $product = Product::find($id);
+        $category = Category::all();
+        return view('admin.update_product', compact('product', 'category'));
+    }
+    public function update_product_confirm(Request $request, $id)
+    {
+        # code...
+        $product = Product::find($id);
+        $product->title = $request->title; // col title trong mysql = name="title" ben view
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->discount_price = $request->dis_price;
+        $product->category = $request->category;
+        $product->quantity = $request->quantity;
+        // xu ly hinh anh
+        $image = $request->image;
+        // kiem tra xem co ton tai chua
+        if ($image) {
+            $imagename = time() . '.' . $image->getClientOriginalExtension(); //return current time không trùng tên
+            $request->image->move('product', $imagename);
+            $product->image = $imagename;
+        }
+        $product->save();
+        return redirect()->back()->with('message', 'Cập nhật sản phẩm thành công.');
     }
 }
