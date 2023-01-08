@@ -2,19 +2,27 @@ composer create-project laravel/laravel example-app
 cd example-app
 php artisan serve
 ---
-Run composer install or composer update
+composer update
 Nếu không được thì dùng lệnh:
+composer update --no-scripts
+composer update --ignore-platform-reqs
 composer dump-autoload
-composer install --no-scripts/ composer update --no-scripts
-Run cp .env.example .env
 
-Run php artisan key:generate
+cp .env.example .env
 
-Run php artisan migrate
+php artisan key:generate
 
-Run php artisan db:seed
+php artisan migrate
 
-Run php artisan serve
+php artisan db:seed
+
+php artisan serve
+------------ Successfully ------------
+cp .env.example .env
+composer install
+php artisan key:generate
+php artisan migrate:fresh --seed
+php artisan serve
 
 Go to link 127.0.0.1:8000
 ----
