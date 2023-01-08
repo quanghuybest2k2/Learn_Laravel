@@ -2,10 +2,10 @@ composer create-project laravel/laravel example-app
 cd example-app
 php artisan serve
 ---
-Run `git clone 'link projer github'
-
-Run composer install
-
+Run composer install or composer update
+Nếu không được thì dùng lệnh:
+composer dump-autoload
+composer install --no-scripts/ composer update --no-scripts
 Run cp .env.example .env
 
 Run php artisan key:generate
@@ -26,7 +26,7 @@ model: thao tác với database
 controller: gọi view hoặc model=> return view
 view: giao diện(hiển thị dữ liệu từ model)
 ------
-nếu 2 namespace khách nhau thì phải dùng từ khóa use duongdan
+nếu 2 namespace khác nhau thì phải dùng từ khóa use duongdan
 tạo model và controller bằng dòng lệnh
 php artisan make:controller TenController
 php artisan make:model TenModel

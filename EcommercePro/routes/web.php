@@ -45,3 +45,5 @@ route::get('/delete_product/{id}', [AdminHomeController::class, 'delete_product'
 route::get('/update_product/{id}', [AdminHomeController::class, 'update_product']);
 // finish update product
 route::post('/update_product_confirm/{id}', [AdminHomeController::class, 'update_product_confirm']);
+// show product details
+route::get('/product_details/{id}', [HomeController::class, 'product_details']);
