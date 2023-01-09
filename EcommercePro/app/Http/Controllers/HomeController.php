@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -76,5 +77,37 @@ class HomeController extends Controller
         $cart = Cart::find($id);
         $cart->delete();
         return redirect()->back();
+    }
+    public function cash_order()
+    {
+        $user = Auth::user();
+        $userid = $user->id;
+        // dd($userid);
+        $data = Cart::where('user_id', '=', $userid)->get();
+        // dd($data);
+        // nhieu mang nen phai dung loop
+        foreach ($data as $item) {
+            $order = new Order;
+            $order->name = $item->name; // du lieu lay tu cart
+            $order->email = $item->email;
+            $order->phone = $item->phone;
+            $order->address = $item->address;
+            $order->user_id = $item->user_id;
+            $order->product_title = $item->product_title;
+            $order->price = $item->price;
+            $order->quantity = $item->quantity;
+            $order->image = $item->image;
+            $order->product_id = $item->product_id;
+            $order->payment_status = 'cash on delivery';
+            $order->delivery_status = 'processing';
+            $order->save();
+            // order thi xoa ben cart
+            $cart_id = $item->id;
+            $cart = Cart::find($cart_id);
+            $cart->delete();
+            // neu return trong loop thi insert 1 data thi back
+        }
+        //insert xong het roi back
+        return redirect()->back()->with('message', 'Chúng tôi đã nhận đơn hàng của bạn. Đơn hàng sẽ được giải quyết nhanh thôi...');
     }
 }
