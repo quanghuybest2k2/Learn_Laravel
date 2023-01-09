@@ -57,8 +57,24 @@ class HomeController extends Controller
             $cart->quantity = $request->quantity;
             $cart->save();
             return redirect()->back()->with('message', 'Đã thêm vào giỏ hàng.');
+        } else { /*chưa đăng nhập*/
+            return redirect('login');
+        }
+    }
+    public function show_cart()
+    {
+        if (Auth::id()) {
+            $id = Auth::user()->id;
+            $cart = Cart::where('user_id', '=', $id)->get(); // vd: user_id = 1
+            return view('home.show_cart', compact('cart'));
         } else {
             return redirect('login');
         }
+    }
+    public function remove_cart($id)
+    {
+        $cart = Cart::find($id);
+        $cart->delete();
+        return redirect()->back();
     }
 }
