@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 use App\Models\Product;
+use Session;
+use Stripe;
 
 class HomeController extends Controller
 {
@@ -109,5 +111,53 @@ class HomeController extends Controller
         }
         //insert xong het roi back
         return redirect()->back()->with('message', 'Chúng tôi đã nhận đơn hàng của bạn. Đơn hàng sẽ được giải quyết nhanh thôi...');
+    }
+    public function stripe($total_price)
+    {
+        return view('home.stripe', compact('total_price'));
+    }
+    public function stripePost(Request $request, $total_price)
+    {
+        // dd($total_price);
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        Stripe\Charge::create([
+            "amount" => $total_price * 100,
+            "currency" => "usd",
+            "source" => $request->stripeToken,
+            "description" => "Thanh toán thành công!"
+        ]);
+
+        $user = Auth::user();
+        $userid = $user->id;
+        // dd($userid);
+        $data = Cart::where('user_id', '=', $userid)->get();
+        // dd($data);
+        // nhieu mang nen phai dung loop
+        foreach ($data as $item) {
+            $order = new Order;
+            $order->name = $item->name; // du lieu lay tu cart
+            $order->email = $item->email;
+            $order->phone = $item->phone;
+            $order->address = $item->address;
+            $order->user_id = $item->user_id;
+            $order->product_title = $item->product_title;
+            $order->price = $item->price;
+            $order->quantity = $item->quantity;
+            $order->image = $item->image;
+            $order->product_id = $item->product_id;
+            $order->payment_status = 'Paid';
+            $order->delivery_status = 'processing';
+            $order->save();
+            // order thi xoa ben cart
+            $cart_id = $item->id;
+            $cart = Cart::find($cart_id);
+            $cart->delete();
+            // neu return trong loop thi insert 1 data thi back
+        }
+
+        Session::flash('success', 'Thanh toán thành công!');
+
+        return back();
     }
 }
