@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 
 class AdminHomeController extends Controller
@@ -91,5 +92,11 @@ class AdminHomeController extends Controller
         }
         $product->save();
         return redirect()->back()->with('message', 'Cập nhật sản phẩm thành công.');
+    }
+    // order in admin
+    public function order()
+    {
+        $order = Order::all();
+        return view('admin.order', compact('order'));
     }
 }
