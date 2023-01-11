@@ -5,6 +5,10 @@
     <!-- Required meta tags -->
     @include('admin.css')
     <style>
+        th {
+            padding: 10px;
+        }
+
         .title_deg {
             text-align: center;
             font-size: 25px;
@@ -52,6 +56,7 @@
                         <th>Payment Status</th>
                         <th>Delivery Status</th>
                         <th>Image</th>
+                        <th>Delivered</th>
                     </tr>
                     @foreach ($order as $item)
                         <tr>
@@ -65,6 +70,15 @@
                             <td>{{ $item->delivery_status }}</td>
                             <td>
                                 <img class="img_size" src="/product/{{ $item->image }}" alt="" />
+                            </td>
+                            <td>
+                                {{-- neu la processing thi hien thi the <a></a> else hien thi the <p></p>(đã xác nhận) --}}
+                                @if ($item->delivery_status == 'processing')
+                                    <a class="btn btn-primary" href="{{ url('delivered', $item->id) }}"
+                                        onclick="return confirm('Đã nhận được hàng?')">Delivered</a>
+                                @else
+                                    <p style="color: green;">delivered</p>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

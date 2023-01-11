@@ -50,6 +50,9 @@ route::get('/update_product/{id}', [AdminHomeController::class, 'update_product'
 route::post('/update_product_confirm/{id}', [AdminHomeController::class, 'update_product_confirm']);
 // order
 Route::get('/order', [AdminHomeController::class, 'order']);
+// delivered
+Route::get('/delivered/{id}', [AdminHomeController::class, 'delivered']);
+
 
 // HomeController
 

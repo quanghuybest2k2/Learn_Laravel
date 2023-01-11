@@ -99,4 +99,13 @@ class AdminHomeController extends Controller
         $order = Order::all();
         return view('admin.order', compact('order'));
     }
+    // delivered
+    public function delivered($id)
+    {
+        $order = Order::find($id);
+        $order->delivery_status = "delivered";
+        $order->payment_status = "Paid";
+        $order->save();
+        return redirect()->back();
+    }
 }
