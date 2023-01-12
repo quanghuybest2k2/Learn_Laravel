@@ -52,6 +52,8 @@ route::post('/update_product_confirm/{id}', [AdminHomeController::class, 'update
 Route::get('/order', [AdminHomeController::class, 'order']);
 // delivered
 Route::get('/delivered/{id}', [AdminHomeController::class, 'delivered']);
+// print pdf
+Route::get('/print_pdf/{id}', [AdminHomeController::class, 'print_pdf']);
 
 
 // HomeController

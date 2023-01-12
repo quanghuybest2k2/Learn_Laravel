@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
+use Illuminate\Support\Composer;
+use PDF;
 
 class AdminHomeController extends Controller
 {
@@ -99,7 +101,7 @@ class AdminHomeController extends Controller
         $order = Order::all();
         return view('admin.order', compact('order'));
     }
-    // delivered
+    // update delivered and payment status
     public function delivered($id)
     {
         $order = Order::find($id);
@@ -107,5 +109,15 @@ class AdminHomeController extends Controller
         $order->payment_status = "Paid";
         $order->save();
         return redirect()->back();
+    }
+    // print pdf
+    public function print_pdf($id)
+    {
+        $order = Order::find($id);
+        $pdf = PDF::loadView('admin.pdf', compact('order'));
+        // dung mPDF có hổ trở tiếng việt
+        // stream: xem truoc (ko tải xuống)
+        // return $pdf->stream('order_details.pdf');
+        return $pdf->download('order_details.pdf');
     }
 }
