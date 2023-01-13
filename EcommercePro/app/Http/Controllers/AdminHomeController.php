@@ -111,6 +111,7 @@ class AdminHomeController extends Controller
         return redirect()->back();
     }
     // print pdf
+    // cần vào php.ini bỏ (;) extension=gd, sau đó khởi động lại php server và xampp
     public function print_pdf($id)
     {
         $order = Order::find($id);

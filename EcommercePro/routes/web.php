@@ -29,7 +29,7 @@ Route::middleware([
 
 //AdminHomeController
 
-route::get('/redirect', [HomeController::class, 'redirect']);
+route::get('/redirect', [HomeController::class, 'redirect'])->middleware('auth', 'verified');
 // hien thi category
 route::get('/view_category', [AdminHomeController::class, 'view_category']);
 // them (method post)
@@ -68,7 +68,7 @@ route::get('/show_cart', [HomeController::class, 'show_cart']);
 route::get('/remove_cart/{id}', [HomeController::class, 'remove_cart']);
 // cash order
 route::get('/cash_order', [HomeController::class, 'cash_order']);
-// 
+// payment: https://dashboard.stripe.com/
 route::get('/stripe/{total_price}', [HomeController::class, 'stripe']);
 //
 Route::post('stripe/{total_price}', [HomeController::class, 'stripePost'])->name('stripe.post');
