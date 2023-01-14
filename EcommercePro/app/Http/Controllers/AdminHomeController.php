@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
-use Illuminate\Support\Composer;
+use App\Notifications\SendEmailNotification;
+use Illuminate\Support\Facades\Notification;
 use PDF;
 
 class AdminHomeController extends Controller
@@ -120,5 +121,25 @@ class AdminHomeController extends Controller
         // stream: xem truoc (ko tải xuống)
         // return $pdf->stream('order_details.pdf');
         return $pdf->download('order_details.pdf');
+    }
+    public function send_email($id)
+    {
+        $order = Order::find($id);
+        return view('admin.email_info', compact('order'));
+    }
+    //send_user_email
+    public function send_user_email(Request $request, $id)
+    {
+        $order = Order::find($id);
+        $details = [
+            'greeting' => $request->greeting, //lay data ben view (email_info)
+            'firstline' => $request->firstline,
+            'body' => $request->body, // 'body' => 'viết theo mặc định cũng được, khỏi nhập mất công',
+            'button' => $request->button,
+            'url' => $request->url,
+            'lastline' => $request->lastline,
+        ];
+        Notification::send($order, new SendEmailNotification($details));
+        return redirect()->back();
     }
 }

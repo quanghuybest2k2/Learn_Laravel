@@ -54,6 +54,10 @@ Route::get('/order', [AdminHomeController::class, 'order']);
 Route::get('/delivered/{id}', [AdminHomeController::class, 'delivered']);
 // print pdf
 Route::get('/print_pdf/{id}', [AdminHomeController::class, 'print_pdf']);
+// send email
+Route::get('/send_email/{id}', [AdminHomeController::class, 'send_email']);
+// send_user_email
+Route::post('/send_user_email/{id}', [AdminHomeController::class, 'send_user_email']);
 
 
 // HomeController
