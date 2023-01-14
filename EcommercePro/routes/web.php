@@ -58,6 +58,8 @@ Route::get('/print_pdf/{id}', [AdminHomeController::class, 'print_pdf']);
 Route::get('/send_email/{id}', [AdminHomeController::class, 'send_email']);
 // send_user_email
 Route::post('/send_user_email/{id}', [AdminHomeController::class, 'send_user_email']);
+// search
+Route::get('/search', [AdminHomeController::class, 'searchdata']);
 
 
 // HomeController

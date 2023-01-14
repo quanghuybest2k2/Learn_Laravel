@@ -142,4 +142,11 @@ class AdminHomeController extends Controller
         Notification::send($order, new SendEmailNotification($details));
         return redirect()->back();
     }
+    public function searchdata(Request $request)
+    {
+        # code...
+        $seachText = $request->search;
+        $order = Order::where('name', 'LIKE', "%$seachText%")->orWhere('phone', 'LIKE', "%$seachText%")->orWhere('product_title', 'LIKE', "%$seachText%")->get();
+        return view('admin.order', compact('order'));
+    }
 }
