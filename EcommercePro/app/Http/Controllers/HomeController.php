@@ -25,9 +25,20 @@ class HomeController extends Controller
 
         $usertype = Auth::user()->usertype;
         if ($usertype == '1') {
-            return view('admin.home');
+            $total_product = Product::all()->count(); // dem so luong san pham
+            $total_order = Order::all()->count();
+            $total_user = User::all()->count();
+            $order = Order::all();
+            $total_revenue = 0;
+            foreach ($order as $item) {
+                $total_revenue += $item->price; // tổng doanh thu
+            }
+            // đếm tổng đơn đã vận chuyển thành công
+            $total_delivered = Order::where('delivery_status', '=', 'delivered')->get()->count();
+            $total_processing = Order::where('delivery_status', '=', 'processing')->get()->count();
+            return view('admin.home', compact('total_product', 'total_order', 'total_user', 'total_revenue', 'total_delivered', 'total_processing'));
         } else {
-            $product = Product::paginate(10); // phan trang (x san pham)
+            $product = Product::paginate(10); // phan trang (hiển thị 10 san pham)
             return view('home.userpage', compact('product'));
         }
     }
