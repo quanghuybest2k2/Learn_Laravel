@@ -122,6 +122,13 @@ class AdminHomeController extends Controller
         // return $pdf->stream('order_details.pdf');
         return $pdf->download('order_details.pdf');
     }
+    /**
+     * It takes the id of an order and returns a view with the order object.
+     * 
+     * @param id The id of the order
+     * 
+     * @return The view is being returned.
+     */
     public function send_email($id)
     {
         $order = Order::find($id);
@@ -142,9 +149,13 @@ class AdminHomeController extends Controller
         Notification::send($order, new SendEmailNotification($details));
         return redirect()->back();
     }
+    /**
+     * It searches the database for the search text and returns the results to the view
+     * 
+     * @param Request request The request object.
+     */
     public function searchdata(Request $request)
     {
-        # code...
         $seachText = $request->search;
         $order = Order::where('name', 'LIKE', "%$seachText%")->orWhere('phone', 'LIKE', "%$seachText%")->orWhere('product_title', 'LIKE', "%$seachText%")->get();
         return view('admin.order', compact('order'));

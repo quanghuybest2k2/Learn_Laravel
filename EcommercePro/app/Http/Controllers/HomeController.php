@@ -20,6 +20,10 @@ class HomeController extends Controller
         $product = Product::paginate(10); // phan trang (x san pham)
         return view('home.userpage', compact('product'));
     }
+    /**
+     * The above function is used to redirect the user to the appropriate page based on their user
+     * type.
+     */
     public function redirect()
     {
 
@@ -170,5 +174,34 @@ class HomeController extends Controller
         Session::flash('success', 'Thanh toán thành công!');
 
         return back();
+    }
+    /**
+     * It checks if the user is logged in, if so, it gets the user's id, then it gets all the orders
+     * that have the user's id, and then it returns the view
+     * 
+     * @return The user's order history is being returned.
+     */
+    public function show_order()
+    {
+        if (Auth::id()) {
+            $user = Auth::user();
+            $userid = $user->id;
+            $order = Order::where('user_id', '=', $userid)->get();
+            return view('home.order', compact('order'));
+        } else {
+            return redirect('login');
+        }
+    }
+    /**
+     * Cancel order
+     * 
+     * @param id The id of the order you want to cancel.
+     */
+    public function cancel_order($id)
+    {
+        $order = Order::find($id);
+        $order->delivery_status = 'Bạn đã hủy đơn hàng';
+        $order->save();
+        return redirect()->back();
     }
 }
