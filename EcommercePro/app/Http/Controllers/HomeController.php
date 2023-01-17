@@ -229,6 +229,7 @@ class HomeController extends Controller
             return redirect('login');
         }
     }
+    // tra loi comment
     public function add_reply(Request $request)
     {
         if (Auth::id()) {
@@ -242,5 +243,21 @@ class HomeController extends Controller
         } else {
             return redirect('login');
         }
+    }
+    /**
+     * The function takes the search text from the user and searches the database for the text in the
+     * title and category columns
+     * 
+     * @param Request request The request object.
+     * 
+     * @return The search text is being returned.
+     */
+    public function product_search(Request $request)
+    {
+        $comment  = Comment::orderby('id', 'desc')->get();
+        $reply = Reply::all();
+        $search_text = $request->search;
+        $product = Product::where('title', 'LIKE', "%$search_text%")->orWhere('category', 'LIKE', "$search_text")->paginate(10);
+        return view('home.userpage', compact('product', 'comment', 'reply'));
     }
 }
