@@ -21,7 +21,6 @@
     <link href="{{ asset('home/css/style.css') }}" rel="stylesheet" />
     <!-- responsive style -->
     <link href="{{ asset('home/css/responsive.css') }}" rel="stylesheet" />
-    <link href="home/css/responsive.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"
         integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -32,43 +31,25 @@
         <!-- header section strats -->
         @include('home.header')
         <!-- end header section -->
-        <!-- slider section -->
-        @include('home/slider')
-        <!-- end slider section -->
+
+        <!-- product section -->
+        @include('home.product_view')
+        <!-- end product section -->
+
+        <!--comment and reply system start-->
+        @include('home.comment');
+        <!--end comment and reply system-->
+
+        <div class="cpy_">
+            <p class="mx-auto">© {{ date('Y') }} All Rights Reserved By <a href="https://html.design/">Free Html
+                    Templates</a><br>
+
+                Distributed By <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+
+            </p>
+        </div>
     </div>
-    <!-- why section -->
-    @include('home.why')
-    <!-- end why section -->
-
-    <!-- arrival section -->
-    @include('home.new_arrival')
-    <!-- end arrival section -->
-
-    <!-- product section -->
-    @include('home.product')
-    <!-- end product section -->
-
-    <!--comment and reply system start-->
-    @include('home.comment');
-    <!--end comment and reply system-->
-
-    <!-- subscribe section -->
-    @include('home.subcribe')
-    <!-- end subscribe section -->
-    <!-- client section -->
-    @include('home.client')
-    <!-- end client section -->
-    <!-- footer start -->
-    @include('home.footer')
-    <!-- footer end -->
-    <div class="cpy_">
-        <p class="mx-auto">© {{ date('Y') }} All Rights Reserved By <a href="https://html.design/">Free Html
-                Templates</a><br>
-
-            Distributed By <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
-
-        </p>
-    </div>
+    {{-- script code --}}
     <script>
         /**
          * When the reply button is clicked, the replyDiv is inserted after the reply button and then

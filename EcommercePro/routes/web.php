@@ -86,5 +86,9 @@ route::get('/cancel_order/{id}', [HomeController::class, 'cancel_order']);
 route::post('/add_comment', [HomeController::class, 'add_comment']);
 //add_reply
 route::post('/add_reply', [HomeController::class, 'add_reply']);
-// product search
+// product search view('home.product)
 route::get('/product_search', [HomeController::class, 'product_search']);
+// search product view('home.product_view)
+route::get('/search_product', [HomeController::class, 'search_product']);
+// xem all products
+route::get('/products', [HomeController::class, 'products']);

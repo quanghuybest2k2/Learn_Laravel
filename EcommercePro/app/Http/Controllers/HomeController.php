@@ -58,29 +58,49 @@ class HomeController extends Controller
 
         return view('home.product_details', compact('product'));
     }
+    // them vao gio hang
     public function add_cart(Request $request, $id)
     {
         if (Auth::id()) {
             $user = Auth::user();
+            $user_id = $user->id;
             // dd($user);
             $product = Product::find($id);
-            $cart = new Cart;
-            $cart->name = $user->name;
-            $cart->email = $user->email;
-            $cart->phone = $user->phone;
-            $cart->address = $user->address;
-            $cart->user_id = $user->id;
-            $cart->product_title = $product->title;
-            if ($product->discount_price != null) {
-                $cart->price = $product->discount_price * $request->quantity;
+            $product_exist_id = Cart::where('product_id', '=', $id)->where('user_id', '=', $user_id)->get('id')->first();
+            // kiểm tra nếu đã tồn tại đơn hàng thì không thêm vào nữa
+            if ($product_exist_id) {
+                $cart = Cart::find($product_exist_id)->first();
+                $quantity = $cart->quantity;
+                // quantity cũ + quantity mới
+                $cart->quantity = $quantity + $request->quantity;
+                if ($product->discount_price != null) {
+                    // gia giam * quantity mới
+                    $cart->price = $product->discount_price * $cart->quantity;
+                } else {
+                    // gia * quantity mới
+                    $cart->price = $product->price * $cart->quantity;
+                }
+                $cart->save();
+                return redirect()->back()->with('message', 'Đã thêm vào giỏ hàng.');
             } else {
-                $cart->price = $product->price * $request->quantity;
+                $cart = new Cart;
+                $cart->name = $user->name;
+                $cart->email = $user->email;
+                $cart->phone = $user->phone;
+                $cart->address = $user->address;
+                $cart->user_id = $user->id;
+                $cart->product_title = $product->title;
+                if ($product->discount_price != null) {
+                    $cart->price = $product->discount_price * $request->quantity;
+                } else {
+                    $cart->price = $product->price * $request->quantity;
+                }
+                $cart->image = $product->image;
+                $cart->product_id = $product->id;
+                $cart->quantity = $request->quantity;
+                $cart->save();
+                return redirect()->back()->with('message', 'Đã thêm vào giỏ hàng.');
             }
-            $cart->image = $product->image;
-            $cart->product_id = $product->id;
-            $cart->quantity = $request->quantity;
-            $cart->save();
-            return redirect()->back()->with('message', 'Đã thêm vào giỏ hàng.');
         } else { /*chưa đăng nhập*/
             return redirect('login');
         }
@@ -259,5 +279,22 @@ class HomeController extends Controller
         $search_text = $request->search;
         $product = Product::where('title', 'LIKE', "%$search_text%")->orWhere('category', 'LIKE', "$search_text")->paginate(10);
         return view('home.userpage', compact('product', 'comment', 'reply'));
+    }
+    // tim kiem ben view(home.product_view)
+    public function search_product(Request $request)
+    {
+        $comment  = Comment::orderby('id', 'desc')->get();
+        $reply = Reply::all();
+        $search_text = $request->search;
+        $product = Product::where('title', 'LIKE', "%$search_text%")->orWhere('category', 'LIKE', "$search_text")->paginate(10);
+        return view('home.all_product', compact('product', 'comment', 'reply'));
+    }
+    // xem all products
+    public function products()
+    {
+        $product = Product::paginate(10); // phan trang (x san pham)
+        $comment  = Comment::orderby('id', 'desc')->get();
+        $reply = Reply::all();
+        return view('home.all_product', compact('product', 'comment', 'reply'));
     }
 }

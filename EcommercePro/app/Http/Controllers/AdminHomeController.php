@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use App\Notifications\SendEmailNotification;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use PDF;
 
@@ -16,8 +17,12 @@ class AdminHomeController extends Controller
     // hien thi category
     public function view_category()
     {
-        $data = Category::all();
-        return view('admin.category', compact('data'));
+        if (Auth::id()) {
+            $data = Category::all();
+            return view('admin.category', compact('data'));
+        } else {
+            return redirect('login');
+        }
     }
     // them
     public function add_category(Request $request)
@@ -37,8 +42,12 @@ class AdminHomeController extends Controller
     // hien thi products
     public function view_product()
     {
-        $category = Category::all();
-        return view('admin.product', compact('category'));
+        if (Auth::id()) {
+            $category = Category::all();
+            return view('admin.product', compact('category'));
+        } else {
+            return redirect('login');
+        }
     }
     // them product
     public function add_product(Request $request)
@@ -77,24 +86,27 @@ class AdminHomeController extends Controller
     }
     public function update_product_confirm(Request $request, $id)
     {
-        # code...
-        $product = Product::find($id);
-        $product->title = $request->title; // col title trong mysql = name="title" ben view
-        $product->description = $request->description;
-        $product->price = $request->price;
-        $product->discount_price = $request->dis_price;
-        $product->category = $request->category;
-        $product->quantity = $request->quantity;
-        // xu ly hinh anh
-        $image = $request->image;
-        // kiem tra xem co ton tai chua
-        if ($image) {
-            $imagename = time() . '.' . $image->getClientOriginalExtension(); //return current time không trùng tên
-            $request->image->move('product', $imagename);
-            $product->image = $imagename;
+        if (Auth::id()) {
+            $product = Product::find($id);
+            $product->title = $request->title; // col title trong mysql = name="title" ben view
+            $product->description = $request->description;
+            $product->price = $request->price;
+            $product->discount_price = $request->dis_price;
+            $product->category = $request->category;
+            $product->quantity = $request->quantity;
+            // xu ly hinh anh
+            $image = $request->image;
+            // kiem tra xem co ton tai chua
+            if ($image) {
+                $imagename = time() . '.' . $image->getClientOriginalExtension(); //return current time không trùng tên
+                $request->image->move('product', $imagename);
+                $product->image = $imagename;
+            }
+            $product->save();
+            return redirect()->back()->with('message', 'Cập nhật sản phẩm thành công.');
+        } else {
+            return redirect('login');
         }
-        $product->save();
-        return redirect()->back()->with('message', 'Cập nhật sản phẩm thành công.');
     }
     // order in admin
     public function order()
