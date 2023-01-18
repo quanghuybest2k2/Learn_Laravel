@@ -13,6 +13,7 @@ use App\Models\Product;
 use App\Models\Reply;
 use Session;
 use Stripe;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class HomeController extends Controller
 {
@@ -81,7 +82,9 @@ class HomeController extends Controller
                     $cart->price = $product->price * $cart->quantity;
                 }
                 $cart->save();
-                return redirect()->back()->with('message', 'Đã thêm vào giỏ hàng.');
+                Alert::success('Thêm thành công', 'Chúng tôi đã thêm vào giỏ hàng!');
+                return redirect()->back();
+                // return redirect()->back()->with('message', 'Đã thêm vào giỏ hàng.');
             } else {
                 $cart = new Cart;
                 $cart->name = $user->name;
@@ -99,7 +102,8 @@ class HomeController extends Controller
                 $cart->product_id = $product->id;
                 $cart->quantity = $request->quantity;
                 $cart->save();
-                return redirect()->back()->with('message', 'Đã thêm vào giỏ hàng.');
+                Alert::success('Thêm thành công', 'Chúng tôi đã thêm vào giỏ hàng!');
+                return redirect()->back();
             }
         } else { /*chưa đăng nhập*/
             return redirect('login');
@@ -151,7 +155,8 @@ class HomeController extends Controller
             // neu return trong loop thi insert 1 data thi back
         }
         //insert xong het roi back
-        return redirect()->back()->with('message', 'Chúng tôi đã nhận đơn hàng của bạn. Đơn hàng sẽ được giải quyết nhanh thôi...');
+        Alert::success('Chúng tôi đã nhận đơn hàng của bạn', 'Đơn hàng sẽ được giải quyết nhanh thôi...');
+        return redirect()->back();
     }
     public function stripe($total_price)
     {
