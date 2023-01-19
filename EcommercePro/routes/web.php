@@ -92,3 +92,9 @@ route::get('/product_search', [HomeController::class, 'product_search']);
 route::get('/search_product', [HomeController::class, 'search_product']);
 // xem all products
 route::get('/products', [HomeController::class, 'products']);
+//contact
+route::get('/contact', [HomeController::class, 'contact']);
+//about
+route::get('/about', [HomeController::class, 'about']);
+// testimonial
+route::get('/testimonial', [HomeController::class, 'testimonial']);

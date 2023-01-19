@@ -23,6 +23,13 @@ class HomeController extends Controller
         $product = Product::paginate(10); // phan trang (x san pham)
         $comment  = Comment::orderby('id', 'desc')->get();
         $reply = Reply::all();
+        // if (Auth::id()) {
+        //     $user_id = Auth::user()->id;
+        //     $cart = Cart::where('user_id', '=', $user_id)->get()->count();
+        //     return view('home.userpage', compact('product', 'comment', 'reply', 'cart'));
+        // } else {
+        //     return view('home.userpage', compact('product', 'comment', 'reply'));
+        // }
         return view('home.userpage', compact('product', 'comment', 'reply'));
     }
     /**
@@ -50,6 +57,10 @@ class HomeController extends Controller
             $product = Product::paginate(10); // phan trang (hiển thị 10 san pham)
             $comment  = Comment::orderby('id', 'desc')->get();
             $reply  = Reply::all();
+            // hien thi cart cua user thông qua id user 
+            // $user_id = Auth::user()->id;
+            // $cart = Cart::where('user_id', '=', $user_id)->get()->count();
+            // return view('home.userpage', compact('product', 'comment', 'reply', 'cart'));
             return view('home.userpage', compact('product', 'comment', 'reply'));
         }
     }
@@ -301,5 +312,20 @@ class HomeController extends Controller
         $comment  = Comment::orderby('id', 'desc')->get();
         $reply = Reply::all();
         return view('home.all_product', compact('product', 'comment', 'reply'));
+    }
+    //contact
+    public function contact()
+    {
+        return view('home.contact');
+    }
+    //about
+    public function about()
+    {
+        return view('home.about');
+    }
+    // testimonial
+    public function testimonial()
+    {
+        return view('home.testimonial');
     }
 }
