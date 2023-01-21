@@ -19,10 +19,20 @@ php artisan db:seed
 php artisan serve
 ------------ Successfully ------------
 cp .env.example .env
-composer install
+composer install/update
 php artisan key:generate
 php artisan migrate:fresh --seed
 php artisan serve
+--------------------------------------
+npm install
+npm run dev
+php artisan migrate
+
+Go to link 127.0.0.1:8000
+--------------------------------------
+npm install
+npm run dev
+php artisan migrate
 
 Go to link 127.0.0.1:8000
 ----

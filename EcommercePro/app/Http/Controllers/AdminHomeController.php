@@ -131,7 +131,7 @@ class AdminHomeController extends Controller
         $pdf = PDF::loadView('admin.pdf', compact('order'));
         // dung mPDF có hổ trở tiếng việt
         // stream: xem truoc (ko tải xuống)
-        // return $pdf->stream('order_details.pdf');
+        // return $pdf->stream();
         return $pdf->download('order_details.pdf');
     }
     /**
