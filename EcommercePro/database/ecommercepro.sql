@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 20, 2023 lúc 04:42 AM
+-- Thời gian đã tạo: Th1 30, 2023 lúc 09:27 AM
 -- Phiên bản máy phục vụ: 10.4.27-MariaDB
 -- Phiên bản PHP: 8.1.12
 
@@ -308,7 +308,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('QVJHIHjgj6SPVHzdqpXvhLV7X22vgqQJIqeH9cFk', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiNGhrSlAzMUNuc3JxVHB3enVUQVd0SzhkejlrTjJIOHFZZTl3ckR5MiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1674116791);
+('hjUqToKPFwMunp6NB0cOcBF1S3BC4wJemuNVv7L7', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiSHYyNDV4b3hWMzFwSThiSDBwN0NiZVBzdXRnU3RJekNlYTNpM3lKZCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wcmludF9wZGYvOSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjI7fQ==', 1674273965);
 
 -- --------------------------------------------------------
 
@@ -341,7 +341,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `usertype`, `phone`, `address`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `two_factor_confirmed_at`, `remember_token`, `current_team_id`, `profile_photo_path`, `created_at`, `updated_at`) VALUES
 (1, 'Đoàn Quang Huy', 'quanghuybest@gmail.com', '0', '0859476166', 'Ninh Sơn, Ninh Thuận, Việt Nam', '2023-01-12 02:38:55', '$2y$10$4rptyORygYoqOMicCDnCGeR0vO.Gzjh5n5GkLQm71qu7AxgcJXktK', NULL, NULL, NULL, '5kbIgktohh40PnN4jPJb4VXuqe7WajAPq9KcFKFgJXSf0pi1GwgFURL0I3Tp', NULL, NULL, '2022-12-30 22:26:11', '2022-12-30 22:26:11'),
-(2, 'admin', 'admin@gmail.com', '1', '0123456789', 'Đà Lạt, Lâm Đồng, Việt Nam', '2023-01-12 02:38:28', '$2y$10$Fe/Q0D0Wup2GAH7s0etYZ.T3GrJYM5FJhszQ.eVhE5CGfStwstpB.', NULL, NULL, NULL, NULL, NULL, NULL, '2022-12-30 22:39:01', '2022-12-30 22:39:01'),
+(2, 'admin', 'admin@gmail.com', '1', '0123456789', 'Đà Lạt, Lâm Đồng, Việt Nam', '2023-01-12 02:38:28', '$2y$10$Fe/Q0D0Wup2GAH7s0etYZ.T3GrJYM5FJhszQ.eVhE5CGfStwstpB.', NULL, NULL, NULL, 'VKEc7mcir5I2E3iVXuNQeLDsH2JGc9YXc10sRxZhHTGTYqLopH1Ut4cJDDKU', NULL, NULL, '2022-12-30 22:39:01', '2022-12-30 22:39:01'),
 (3, 'SH Team', 'gahoccode@gmail.com', '0', '0123456789', '33 Bùi Viện, Phường Phạm Ngũ Lão, Quận 1, Thành phố Hồ Chí Minh', '2023-01-12 19:35:55', '$2y$10$VrSQk7zr9fkTbWoKbklGyeUwavEHoTd3jYYOiID8MWVzoId6VwA.S', NULL, NULL, NULL, NULL, NULL, NULL, '2023-01-12 19:33:49', '2023-01-12 19:35:55');
 
 --
