@@ -1,0 +1,72 @@
+composer create-project laravel/laravel example-app
+cd example-app
+php artisan serve
+-----
+Server:
+Host: php artisan serve --host=petshop.com --port=8001 (sửa ở file hosts ở C:\Windows\System32\drivers\etc\hosts)
+# host petshop
+192.168.66.96      	petshop.com
+---------------------------------------------------
+php artisan serve --host 192.168.66.96
+php artisan serve --host 0.0.0.0 --port 8101
+---
+composer update
+Nếu không được thì dùng lệnh:
+composer update --no-scripts
+composer update --ignore-platform-reqs
+composer dump-autoload
+
+cp .env.example .env
+
+php artisan key:generate
+
+php artisan migrate
+
+php artisan db:seed
+
+php artisan serve
+------------ Successfully ------------
+cp .env.example .env
+composer install/update
+php artisan key:generate
+php artisan migrate:fresh --seed
+php artisan serve
+--------------------------------------
+npm install
+npm run dev
+php artisan migrate
+
+Go to link 127.0.0.1:8000
+--------------------------------------
+npm install
+npm run dev
+php artisan migrate
+
+Go to link 127.0.0.1:8000
+----
+Nếu báo lỗi Your lock file does not contain a compatible set of packages. Please run composer update
+gõ composer update --ignore-platform-reqs
+---------------------
+MVC
+model: thao tác với database
+controller: gọi view hoặc model=> return view
+view: giao diện(hiển thị dữ liệu từ model)
+------
+nếu 2 namespace khác nhau thì phải dùng từ khóa use duongdan
+tạo model và controller bằng dòng lệnh
+php artisan make:controller TenController
+php artisan make:model TenModel
+php artisan make:component TenComponent
+---------------------
+htaccess: DirectoryIndex index.php index.html index.htm index2.html
+----- remove commit
+git reset --hard CommitId
+--------
+http status
+use Symfony\Component\HttpFoundation\Response
+Response::HTTP_...
+-------------------------------
+testing
+php artisan make:test TênTestCaseTest
+php artisan test --filter AuthTest
+php artisan test --filter=ten_method
